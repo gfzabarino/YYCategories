@@ -301,7 +301,7 @@ static NSTimeInterval _yy_CGImageSourceGetGIFFrameDelayAtIndex(CGImageSourceRef 
 
 - (UIImage *)imageByResizeToSize:(CGSize)size {
     if (size.width <= 0 || size.height <= 0) return nil;
-    UIGraphicsBeginImageContextWithOptions(size, NO, 0);
+    UIGraphicsBeginImageContextWithOptions(size, ![self hasAlphaChannel], 0);
     [self drawInRect:CGRectMake(0, 0, size.width, size.height)];
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
@@ -310,7 +310,7 @@ static NSTimeInterval _yy_CGImageSourceGetGIFFrameDelayAtIndex(CGImageSourceRef 
 
 - (UIImage *)imageByResizeToSize:(CGSize)size contentMode:(UIViewContentMode)contentMode {
     if (size.width <= 0 || size.height <= 0) return nil;
-    UIGraphicsBeginImageContextWithOptions(size, NO, 0);
+    UIGraphicsBeginImageContextWithOptions(size, ![self hasAlphaChannel], 0);
     [self drawInRect:CGRectMake(0, 0, size.width, size.height) withContentMode:contentMode clipsToBounds:NO];
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
@@ -335,7 +335,7 @@ static NSTimeInterval _yy_CGImageSourceGetGIFFrameDelayAtIndex(CGImageSourceRef 
     size.height -= insets.top + insets.bottom;
     if (size.width <= 0 || size.height <= 0) return nil;
     CGRect rect = CGRectMake(-insets.left, -insets.top, self.size.width, self.size.height);
-    UIGraphicsBeginImageContextWithOptions(size, NO, self.scale);
+    UIGraphicsBeginImageContextWithOptions(size, ![self hasAlphaChannel], self.scale);
     CGContextRef context = UIGraphicsGetCurrentContext();
     if (color) {
         CGContextSetFillColorWithColor(context, color.CGColor);
@@ -500,7 +500,7 @@ static NSTimeInterval _yy_CGImageSourceGetGIFFrameDelayAtIndex(CGImageSourceRef 
 }
 
 - (UIImage *)imageByTintColor:(UIColor *)color {
-    UIGraphicsBeginImageContextWithOptions(self.size, NO, self.scale);
+    UIGraphicsBeginImageContextWithOptions(self.size, ![self hasAlphaChannel], self.scale);
     CGRect rect = CGRectMake(0, 0, self.size.width, self.size.height);
     [color set];
     UIRectFill(rect);
